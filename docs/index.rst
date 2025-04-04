@@ -1,9 +1,9 @@
-.. SQL_Code_completion documentation master file, created by
+.. SQl Query Completion documentation master file, created by
    sphinx-quickstart.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-SQL_Code_completion documentation!
+SQl Query Completion documentation!
 ==============================================
 
 Contents:

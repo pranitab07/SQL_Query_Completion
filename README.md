@@ -1,7 +1,7 @@
-SQL_Code_completion
+SQl Query Completion
 ==============================
 
-This Project aims to autocomplete the SQL code and help developers to be productive
+This is an AI based SQL Autocompletion Project to assist Developers in solving complex queries without any time wastage.
 
 Project Organization
 ------------
