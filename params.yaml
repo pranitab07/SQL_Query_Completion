@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+base : 
+  project : SQL Query Completion
+
+data :
+  loc : data\raw\sql_text_to_sql.csv
+
+vector_store:
+  index_path: data/processed/sql_faiss_index.index
+  metadata_path: data/processed/sql_metadata.pkl
+=======
 base:
   project: sql_query_completion
   sleep_time: 0.2
@@ -14,3 +25,4 @@ triggers:
     c: ctrl
     key: z
   speed_write: 0.01
+>>>>>>> main
