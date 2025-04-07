@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 base : 
   project : SQL Query Completion
 
@@ -7,3 +8,21 @@ data :
 vector_store:
   index_path: data/processed/sql_faiss_index.index
   metadata_path: data/processed/sql_metadata.pkl
+=======
+base:
+  project: sql_query_completion
+  sleep_time: 0.2
+  window_name: 
+    - MySQL Workbench
+    - pgAdmin 4
+
+triggers:
+  initiater: ctrl+c
+  filler: tab
+  key: \t
+  quiting: esc
+  remove_ghost:
+    c: ctrl
+    key: z
+  speed_write: 0.01
+>>>>>>> main
