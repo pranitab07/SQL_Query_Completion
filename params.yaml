@@ -1,0 +1,9 @@
+base : 
+  project : SQL Query Completion
+
+data :
+  loc : data\raw\sql_text_to_sql.csv
+
+vector_store:
+  index_path: data/processed/sql_faiss_index.index
+  metadata_path: data/processed/sql_metadata.pkl
