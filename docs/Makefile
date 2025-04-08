@@ -77,17 +77,39 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
+<<<<<<< HEAD
 	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/SQL_coplilot.qhcp"
 	@echo "To view the help file:"
 	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/SQL_coplilot.qhc"
+=======
+<<<<<<< HEAD
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/sql_query_completion.qhcp"
+	@echo "To view the help file:"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/sql_query_completion.qhc"
+=======
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/sql_code_completion.qhcp"
+	@echo "To view the help file:"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/sql_code_completion.qhc"
+>>>>>>> main
+>>>>>>> origin/main
 
 devhelp:
 	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
+<<<<<<< HEAD
 	@echo "# mkdir -p $$HOME/.local/share/devhelp/SQL_coplilot"
 	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/SQL_coplilot"
+=======
+<<<<<<< HEAD
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/sql_query_completion"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/sql_query_completion"
+=======
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/sql_code_completion"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/sql_code_completion"
+>>>>>>> main
+>>>>>>> origin/main
 	@echo "# devhelp"
 
 epub:

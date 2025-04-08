@@ -1,7 +1,21 @@
+<<<<<<< HEAD
 SQL_copilot
 ==============================
 
 A short description of the project.
+=======
+<<<<<<< HEAD
+SQl Query Completion
+==============================
+
+This is an AI based SQL Autocompletion Project to assist Developers in solving complex queries without any time wastage.
+=======
+SQL_Code_completion
+==============================
+
+This Project aims to autocomplete the SQL code and help developers to be productive
+>>>>>>> main
+>>>>>>> origin/main
 
 Project Organization
 ------------

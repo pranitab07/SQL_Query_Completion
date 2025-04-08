@@ -99,9 +99,21 @@ if "%1" == "qthelp" (
 	echo.
 	echo.Build finished; now you can run "qcollectiongenerator" with the ^
 .qhcp project file in %BUILDDIR%/qthelp, like this:
+<<<<<<< HEAD
 	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\SQL_coplilot.qhcp
 	echo.To view the help file:
 	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\SQL_coplilot.ghc
+=======
+<<<<<<< HEAD
+	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\sql_query_completion.qhcp
+	echo.To view the help file:
+	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\sql_query_completion.ghc
+=======
+	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\sql_code_completion.qhcp
+	echo.To view the help file:
+	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\sql_code_completion.ghc
+>>>>>>> main
+>>>>>>> origin/main
 	goto end
 )
 

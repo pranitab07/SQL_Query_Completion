@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 #
+<<<<<<< HEAD
 # SQL_copilot documentation build configuration file, created by
+=======
+<<<<<<< HEAD
+# SQl Query Completion documentation build configuration file, created by
+=======
+# SQL_Code_completion documentation build configuration file, created by
+>>>>>>> main
+>>>>>>> origin/main
 # sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -41,7 +49,15 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
+<<<<<<< HEAD
 project = u'SQL_copilot'
+=======
+<<<<<<< HEAD
+project = u'SQl Query Completion'
+=======
+project = u'SQL_Code_completion'
+>>>>>>> main
+>>>>>>> origin/main
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -164,7 +180,15 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
+<<<<<<< HEAD
 htmlhelp_basename = 'SQL_coplilotdoc'
+=======
+<<<<<<< HEAD
+htmlhelp_basename = 'sql_query_completiondoc'
+=======
+htmlhelp_basename = 'sql_code_completiondoc'
+>>>>>>> main
+>>>>>>> origin/main
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -184,9 +208,21 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
     ('index',
+<<<<<<< HEAD
      'SQL_coplilot.tex',
      u'SQL_copilot Documentation',
      u"LAxmikant", 'manual'),
+=======
+<<<<<<< HEAD
+     'sql_query_completion.tex',
+     u'SQl Query Completion Documentation',
+     u"Aditya", 'manual'),
+=======
+     'sql_code_completion.tex',
+     u'SQL_Code_completion Documentation',
+     u"AISSMS IOIT'26", 'manual'),
+>>>>>>> main
+>>>>>>> origin/main
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -215,8 +251,18 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
+<<<<<<< HEAD
     ('index', 'SQL_coplilot', u'SQL_copilot Documentation',
      [u"LAxmikant"], 1)
+=======
+<<<<<<< HEAD
+    ('index', 'sql_query_completion', u'SQl Query Completion Documentation',
+     [u"Aditya"], 1)
+=======
+    ('index', 'sql_code_completion', u'SQL_Code_completion Documentation',
+     [u"AISSMS IOIT'26"], 1)
+>>>>>>> main
+>>>>>>> origin/main
 ]
 
 # If true, show URL addresses after external links.
@@ -229,9 +275,21 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
+<<<<<<< HEAD
     ('index', 'SQL_coplilot', u'SQL_copilot Documentation',
      u"LAxmikant", 'SQL_copilot',
      'A short description of the project.', 'Miscellaneous'),
+=======
+<<<<<<< HEAD
+    ('index', 'sql_query_completion', u'SQl Query Completion Documentation',
+     u"Aditya", 'SQl Query Completion',
+     'This is an AI based SQL Autocompletion Project to assist Developers in solving complex queries without any time wastage.', 'Miscellaneous'),
+=======
+    ('index', 'sql_code_completion', u'SQL_Code_completion Documentation',
+     u"AISSMS IOIT'26", 'SQL_Code_completion',
+     'This Project aims to autocomplete the SQL code and help developers to be productive', 'Miscellaneous'),
+>>>>>>> main
+>>>>>>> origin/main
 ]
 
 # Documents to append as an appendix to all manuals.
