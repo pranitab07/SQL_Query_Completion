@@ -11,7 +11,7 @@ def read_param(config_path):
 
 def get_data(config_path):
     config = read_param(config_path)
-    dataset = load_dataset("gretelai/synthetic_text_to_sql", split="train")
+    dataset = load_dataset(config["data"]["source"], split="train")
     df = dataset.to_pandas()
     data_path = config["data"]["loc"]
     df.to_csv(data_path, index=False)
