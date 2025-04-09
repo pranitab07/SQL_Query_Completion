@@ -1,0 +1,23 @@
+
+============================================================
+[2025-04-10 02:44:20]
+USER INPUT:
+-- show me all employees with salary above 100000 and then show me those with salary below 50000
+
+RETRIEVED CONTEXT:
+Prompt: How many employees are there in each position without a salary greater than $100000?
+SQL: SELECT e.position, COUNT(*) as num_employees FROM employee_positions e JOIN employees em ON em.id = e.id HAVING SUM(em.salary) <= 100000 GROUP BY e.position;
+Explanation: Count the number of employees in each position with a salary less than or equal to $100000 by joining 'employee_positions' and 'employees' tables, grouping results by 'position', and using HAVING clause for salary filtering.
+
+Prompt: Get the names and salaries of all employees earning more than $50,000
+SQL: SELECT name, salary FROM employees WHERE salary > 50000.00;
+Explanation: This SQL query retrieves the names and salaries of all employees who earn more than $50,000 by selecting the name and salary columns for all records where the salary is greater than 50000.00.
+
+Prompt: Display the number of employees in each department and the total salary paid
+SQL: SELECT Department, COUNT(*), SUM(Salary) FROM Employees WHERE LeftCompany = FALSE GROUP BY Department;
+Explanation: This query counts the number of employees in each department and calculates the total salary paid to those employees, excluding employees who have left the company. It groups the records by the Department field and then calculates the number of records and the total salary for each group.
+
+LLM SUGGESTION:
+SELECT name, salary FROM employees WHERE salary > 100000;
+SELECT name, salary FROM employees WHERE salary < 50000;
+```

@@ -6,20 +6,33 @@ import pygetwindow as gw
 import yaml
 import argparse
 from src.llm import query_groq_llama
+from src.retrieve_context import get_similar_context
 import faiss
 import pickle
 from sentence_transformers import SentenceTransformer
 import numpy as np
 import re
+import datetime
+import os
 
 ghost_displayed = False
 ghost_text = ""
 last_suggestion = ""
 
+def log_suggestion(user_input, retrieved_context, suggestion):
+    os.makedirs("logs", exist_ok=True)
+    log_path = "logs/suggestions_log.txt"
+
+    with open(log_path, "a", encoding="utf-8") as f:
+        f.write("\n" + "="*60 + "\n")
+        f.write(f"[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}]\n")
+        f.write(f"USER INPUT:\n{user_input}\n\n")
+        f.write(f"RETRIEVED CONTEXT:\n{retrieved_context}\n\n")
+        f.write(f"LLM SUGGESTION:\n{suggestion}\n")
+        
 def read_param(config_path):
     with open(config_path) as yaml_file:
-        config = yaml.safe_load(yaml_file)
-        return config
+        return yaml.safe_load(yaml_file)
 
 def get_active_window_title():
     try:
@@ -27,16 +40,34 @@ def get_active_window_title():
     except:
         return ""
 
-def get_real_suggestion(user_input, index, metadata, model, config):
-    embedding = model.encode([user_input])
-    top_k = config["vector_store"]["top_k"]
-    _, indices = index.search(np.array(embedding).astype("float32"), top_k)
-    context = "\n".join([metadata[i]["sql_prompt"] for i in indices[0]])
-    response = query_groq_llama(user_input=user_input, context=context)
-    return response
+def format_context(rows):
+    """
+    Takes in metadata rows and builds a richer LLM context string.
+    """
+    context_blocks = []
+    for row in rows:
+        block = f"""Prompt: {row['sql_prompt']}
+SQL: {row.get('sql', 'N/A')}
+Explanation: {row.get('sql_explanation', 'N/A')}"""
+        context_blocks.append(block)
+    return "\n\n".join(context_blocks)
+
+def get_real_suggestion(user_input, config):
+    try:
+        similar_rows = get_similar_context(user_input, config_path="params.yaml", top_k=config["vector_store"]["top_k"])
+        context = format_context(similar_rows)
+        response = query_groq_llama(user_input=user_input, context=context)
+
+        # ✅ Log the interaction
+        log_suggestion(user_input, context, response)
+
+        return response
+    except Exception as e:
+        print(f"[ERROR] Failed to get suggestion: {e}")
+        return "-- suggestion: (error generating suggestion)"
 
 def handle_ctrl_c():
-    global ghost_displayed, ghost_text, index, metadata, model, config, last_suggestion
+    global ghost_displayed, ghost_text, config, last_suggestion
 
     time.sleep(config["base"]["sleep_time"])
     copied_text = pyperclip.paste().strip()
@@ -51,7 +82,13 @@ def handle_ctrl_c():
     print("✅ SQL Captured:")
     print(copied_text)
 
-    suggestion = get_real_suggestion(copied_text, index, metadata, model, config)
+    # Clean comments for embedding input
+    user_input = copied_text.strip()
+    if not user_input:
+        print("⚠️ Clipboard is empty.")
+        return
+
+    suggestion = get_real_suggestion(user_input, config)
     last_suggestion = suggestion
     ghost_text = f"  -- suggestion: {suggestion}"
     pyautogui.write(ghost_text, interval=config["triggers"]["speed_write"])
@@ -74,17 +111,11 @@ def handle_any_other_key(e):
 
 def main(config_path):
     print("👀 Listening for Ctrl+C and Tab... (press Esc to quit)")
-    global config, index, metadata, model
+    global config
 
     config = read_param(config_path)
 
-    print("📦 Loading FAISS index and metadata...")
-    index = faiss.read_index(config["vector_store"]["index_path"])
-    with open(config["vector_store"]["metadata_path"], "rb") as f:
-        metadata = pickle.load(f)
-
-    model = SentenceTransformer("all-MiniLM-L6-v2")
-
+    # We don’t need to load FAISS or metadata here — handled in retrieve_context
     keyboard.add_hotkey(config["triggers"]["initiater"], handle_ctrl_c)
     keyboard.add_hotkey(config["triggers"]["filler"], handle_tab)
 

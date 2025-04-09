@@ -1,16 +1,21 @@
 import os
 import re
 import requests
+import yaml
 from dotenv import load_dotenv
 
 # Load environment variables from .env
 load_dotenv()
 
-def query_groq_llama(user_input: str, context: str = "", model="meta-llama/llama-4-scout-17b-16e-instruct") -> str:
+def query_groq_llama(user_input: str, context: str = "", config_path: str = "params.yaml") -> str:
     api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
         raise ValueError("GROQ_API_KEY environment variable not set.")
-
+    
+    with open(config_path) as f:
+        config = yaml.safe_load(f)
+    model = config["llm"]["model"]
+    
     url = "https://api.groq.com/openai/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {api_key}",

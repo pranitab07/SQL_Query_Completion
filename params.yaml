@@ -13,6 +13,9 @@ vector_store:
   metadata_path: data/processed/sql_metadata.pkl
   top_k: 3
 
+llm:
+  model: meta-llama/llama-4-scout-17b-16e-instruct
+
 triggers:
   initiater: ctrl+c
   filler: tab
