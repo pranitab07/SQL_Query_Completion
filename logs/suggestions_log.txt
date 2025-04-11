@@ -1,23 +1,50 @@
 
 ============================================================
-[2025-04-10 02:44:20]
+[2025-04-11 20:16:03]
 USER INPUT:
--- show me all employees with salary above 100000 and then show me those with salary below 50000
+/*
+Fetch those data of employees 
+whose salary is greater than 15,000 and 
+they live in Pune
+*/
 
 RETRIEVED CONTEXT:
-Prompt: How many employees are there in each position without a salary greater than $100000?
-SQL: SELECT e.position, COUNT(*) as num_employees FROM employee_positions e JOIN employees em ON em.id = e.id HAVING SUM(em.salary) <= 100000 GROUP BY e.position;
-Explanation: Count the number of employees in each position with a salary less than or equal to $100000 by joining 'employee_positions' and 'employees' tables, grouping results by 'position', and using HAVING clause for salary filtering.
+Prompt: Find the names and positions of employees who earn more than the average salary?
+SQL: SELECT name, position FROM employee_salaries WHERE salary > (SELECT avg_salary FROM avg_salary);
+Explanation: This query first creates a view 'avg_salary' to store the average salary value. Then, it retrieves the names and positions of employees who earn more than the average salary by using a subquery to compare each employee's salary to the average salary stored in the 'avg_salary' view.
 
-Prompt: Get the names and salaries of all employees earning more than $50,000
-SQL: SELECT name, salary FROM employees WHERE salary > 50000.00;
-Explanation: This SQL query retrieves the names and salaries of all employees who earn more than $50,000 by selecting the name and salary columns for all records where the salary is greater than 50000.00.
+Prompt: Update the salary of all employees in the 'IT' department to 90000 in the "Employees" table.
+SQL: UPDATE Employees SET salary = 90000.0 WHERE department = 'IT';
+Explanation: This query updates the salary of all employees in the 'IT' department to 90000 in the Employees table. It uses the UPDATE statement with the WHERE clause to filter the records to be updated based on the department column. It sets the salary column to 90000.0 for all records that match the filter criteria.
 
-Prompt: Display the number of employees in each department and the total salary paid
-SQL: SELECT Department, COUNT(*), SUM(Salary) FROM Employees WHERE LeftCompany = FALSE GROUP BY Department;
-Explanation: This query counts the number of employees in each department and calculates the total salary paid to those employees, excluding employees who have left the company. It groups the records by the Department field and then calculates the number of records and the total salary for each group.
+Prompt: Get the names and salaries of all employees who earn more than the average salary
+SQL: SELECT name, salary FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);
+Explanation: This SQL query retrieves the names and salaries of all employees who earn more than the average salary by selecting the name and salary columns for all records where the salary is greater than the average salary.
 
 LLM SUGGESTION:
-SELECT name, salary FROM employees WHERE salary > 100000;
-SELECT name, salary FROM employees WHERE salary < 50000;
-```
+SELECT * FROM employees WHERE salary > 15000 AND city = 'Pune';
+
+============================================================
+[2025-04-11 20:17:49]
+USER INPUT:
+/*
+Fetch those data of employees 
+whose salary is greater than 15,000 and 
+they live in Pune
+*/
+
+RETRIEVED CONTEXT:
+Prompt: Find the names and positions of employees who earn more than the average salary?
+SQL: SELECT name, position FROM employee_salaries WHERE salary > (SELECT avg_salary FROM avg_salary);
+Explanation: This query first creates a view 'avg_salary' to store the average salary value. Then, it retrieves the names and positions of employees who earn more than the average salary by using a subquery to compare each employee's salary to the average salary stored in the 'avg_salary' view.
+
+Prompt: Update the salary of all employees in the 'IT' department to 90000 in the "Employees" table.
+SQL: UPDATE Employees SET salary = 90000.0 WHERE department = 'IT';
+Explanation: This query updates the salary of all employees in the 'IT' department to 90000 in the Employees table. It uses the UPDATE statement with the WHERE clause to filter the records to be updated based on the department column. It sets the salary column to 90000.0 for all records that match the filter criteria.
+
+Prompt: Get the names and salaries of all employees who earn more than the average salary
+SQL: SELECT name, salary FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);
+Explanation: This SQL query retrieves the names and salaries of all employees who earn more than the average salary by selecting the name and salary columns for all records where the salary is greater than the average salary.
+
+LLM SUGGESTION:
+SELECT * FROM employees WHERE salary > 15000 AND city = 'Pune';

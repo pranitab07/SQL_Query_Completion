@@ -5,13 +5,8 @@ import time
 import pygetwindow as gw
 import yaml
 import argparse
-from src.llm import query_groq_llama
-from src.retrieve_context import get_similar_context
-import faiss
-import pickle
-from sentence_transformers import SentenceTransformer
-import numpy as np
-import re
+from llm import query_groq_llama
+from retrieve_context import get_similar_context
 import datetime
 import os
 
@@ -58,7 +53,7 @@ def get_real_suggestion(user_input, config):
         context = format_context(similar_rows)
         response = query_groq_llama(user_input=user_input, context=context)
 
-        # ✅ Log the interaction
+        # Log the interaction
         log_suggestion(user_input, context, response)
 
         return response
@@ -90,15 +85,18 @@ def handle_ctrl_c():
 
     suggestion = get_real_suggestion(user_input, config)
     last_suggestion = suggestion
-    ghost_text = f"  -- suggestion: {suggestion}"
+    ghost_text = f"/* suggestion: {suggestion} */"
+    pyautogui.press('right')
+    pyautogui.press('enter')
     pyautogui.write(ghost_text, interval=config["triggers"]["speed_write"])
     ghost_displayed = True
 
 def handle_tab():
     global ghost_displayed, ghost_text, last_suggestion, config
     if ghost_displayed:
+        pyautogui.hotkey('ctrl', 'z')
         pyautogui.hotkey(config["triggers"]["remove_ghost"]["c"], config["triggers"]["remove_ghost"]["key"])
-        time.sleep(config["base"]["sleep_time"])
+        pyautogui.press('enter')
         pyautogui.write(last_suggestion, interval=config["triggers"]["speed_write"])
         ghost_displayed = False
 

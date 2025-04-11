@@ -1,6 +1,5 @@
 import faiss
 import pickle
-import pandas as pd
 from sentence_transformers import SentenceTransformer
 import numpy as np
 import yaml
@@ -14,7 +13,7 @@ def get_similar_context(query, config_path="params.yaml", top_k=5):
     config = read_param(config_path)
 
     # Load FAISS index and metadata
-    index = faiss.read_index(config["vector_store"]["index_path"])
+    index = faiss.read_index(config["vector_store"]["path_to_save"])
     with open(config["vector_store"]["metadata_path"], "rb") as f:
         metadata = pickle.load(f)
 
