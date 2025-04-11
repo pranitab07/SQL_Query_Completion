@@ -1,3 +1,4 @@
+# project requirements
 faiss-cpu
 sentence-transformers
 openai
@@ -11,7 +12,6 @@ pydantic
 transformers
 pyperclip
 watchdog
-cookiecutter
 typer
 pandas
 datasets
@@ -21,3 +21,5 @@ keyboard
 pyautogui
 pygetwindow
 pyinstaller
+chromadb
+pinecone
