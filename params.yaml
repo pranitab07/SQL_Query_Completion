@@ -1,17 +1,22 @@
-
-
-data :
-  loc : data\raw\sql_text_to_sql.csv
-
-vector_store:
-  index_path: data/processed/sql_faiss_index.index
-  metadata_path: data/processed/sql_metadata.pkl
 base:
   project: sql_query_completion
   sleep_time: 0.2
   window_name: 
     - MySQL Workbench
     - pgAdmin 4
+data :
+  loc : data\raw\sql_text_to_sql.csv
+  source: gretelai/synthetic_text_to_sql
+
+llm:
+  qwen-2.5-coder-32b:
+    model: qwen/qwen-2.5-coder-32b
+
+  deepseek-r1-distill-llama-70b:
+    model: deepseek-ai/deepseek-r1-distill-llama-70b
+
+  qwen-2.5-32b:
+    model: qwen/qwen-2.5-32b
 
 triggers:
   initiater: ctrl+c
@@ -22,3 +27,23 @@ triggers:
     c: ctrl
     key: z
   speed_write: 0.01
+
+vector_store:
+  type: faiss
+  path_to_save: data/processed/sql_faiss_index.index
+  metadata_path: data/processed/sql_metadata.pkl
+  top_k: 3
+  
+  # only for chroma
+  persist_directory: data/processed/chroma
+  collection_name_chroma: my_chroma_collection
+
+  # only for pinecone
+  index_name: my-index
+  dimension: 384
+  namespace: default
+  metric: cosine         # or euclidean, dotproduct
+  batch_size: 100
+
+embedding:
+  model_name: all-MiniLM-L6-v2

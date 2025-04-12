@@ -1,16 +1,18 @@
+<<<<<<< HEAD
 
 # local package
 
 
 
 
+=======
+>>>>>>> dd48844d922dbe8c62bb3887cbf6bd8b920328ca
 # project requirements
 faiss-cpu
 sentence-transformers
 openai
 fastapi
 uvicorn
-python-dotenv
 httpx
 requests
 langchain
@@ -19,14 +21,18 @@ pydantic
 transformers
 pyperclip
 watchdog
-cookiecutter
 typer
 pandas
 datasets
 transformers==4.36.2
 python-dotenv>=0.5.1
-pyperclip
 keyboard
 pyautogui
 pygetwindow
+<<<<<<< HEAD
 
+=======
+pyinstaller
+chromadb
+pinecone
+>>>>>>> dd48844d922dbe8c62bb3887cbf6bd8b920328ca

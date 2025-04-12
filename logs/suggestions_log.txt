@@ -1,0 +1,92 @@
+
+============================================================
+[2025-04-11 20:16:03]
+USER INPUT:
+/*
+Fetch those data of employees 
+whose salary is greater than 15,000 and 
+they live in Pune
+*/
+
+RETRIEVED CONTEXT:
+Prompt: Find the names and positions of employees who earn more than the average salary?
+SQL: SELECT name, position FROM employee_salaries WHERE salary > (SELECT avg_salary FROM avg_salary);
+Explanation: This query first creates a view 'avg_salary' to store the average salary value. Then, it retrieves the names and positions of employees who earn more than the average salary by using a subquery to compare each employee's salary to the average salary stored in the 'avg_salary' view.
+
+Prompt: Update the salary of all employees in the 'IT' department to 90000 in the "Employees" table.
+SQL: UPDATE Employees SET salary = 90000.0 WHERE department = 'IT';
+Explanation: This query updates the salary of all employees in the 'IT' department to 90000 in the Employees table. It uses the UPDATE statement with the WHERE clause to filter the records to be updated based on the department column. It sets the salary column to 90000.0 for all records that match the filter criteria.
+
+Prompt: Get the names and salaries of all employees who earn more than the average salary
+SQL: SELECT name, salary FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);
+Explanation: This SQL query retrieves the names and salaries of all employees who earn more than the average salary by selecting the name and salary columns for all records where the salary is greater than the average salary.
+
+LLM SUGGESTION:
+SELECT * FROM employees WHERE salary > 15000 AND city = 'Pune';
+
+============================================================
+[2025-04-11 20:17:49]
+USER INPUT:
+/*
+Fetch those data of employees 
+whose salary is greater than 15,000 and 
+they live in Pune
+*/
+
+RETRIEVED CONTEXT:
+Prompt: Find the names and positions of employees who earn more than the average salary?
+SQL: SELECT name, position FROM employee_salaries WHERE salary > (SELECT avg_salary FROM avg_salary);
+Explanation: This query first creates a view 'avg_salary' to store the average salary value. Then, it retrieves the names and positions of employees who earn more than the average salary by using a subquery to compare each employee's salary to the average salary stored in the 'avg_salary' view.
+
+Prompt: Update the salary of all employees in the 'IT' department to 90000 in the "Employees" table.
+SQL: UPDATE Employees SET salary = 90000.0 WHERE department = 'IT';
+Explanation: This query updates the salary of all employees in the 'IT' department to 90000 in the Employees table. It uses the UPDATE statement with the WHERE clause to filter the records to be updated based on the department column. It sets the salary column to 90000.0 for all records that match the filter criteria.
+
+Prompt: Get the names and salaries of all employees who earn more than the average salary
+SQL: SELECT name, salary FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);
+Explanation: This SQL query retrieves the names and salaries of all employees who earn more than the average salary by selecting the name and salary columns for all records where the salary is greater than the average salary.
+
+LLM SUGGESTION:
+SELECT * FROM employees WHERE salary > 15000 AND city = 'Pune';
+
+============================================================
+[2025-04-11 20:44:40]
+USER INPUT:
+-- give me marks of user named pranita
+
+RETRIEVED CONTEXT:
+Prompt: Show all posts related to data privacy in Spanish and the number of likes for each.
+SQL: SELECT posts.content, COUNT(likes.id) AS likes_count FROM posts JOIN likes ON posts.id = likes.post_id WHERE posts.content LIKE '%data privacy%' AND posts.language = 'es' GROUP BY posts.id;
+Explanation: This query selects all the posts related to data privacy in Spanish and the number of likes for each. It joins the posts and likes tables and filters the posts by the specified keyword and language. The query then groups the results by post ID and calculates the count of likes for each post ID.
+
+Prompt: What is the name and text of the most recent comment made by a user from India?
+SQL: SELECT c.text, c.user_id FROM comments c WHERE c.country = 'India' AND c.created_date = (SELECT MAX(created_date) FROM comments WHERE country = 'India')
+Explanation: This query first selects the maximum created_date for comments from India. Then, it selects the text and user_id of the comment with the matching created_date.
+
+Prompt: Who are the top 3 users with the most posts containing the hashtag '#food' in 'Japan'?
+SQL: SELECT name FROM (SELECT name, ROW_NUMBER() OVER (PARTITION BY post_country ORDER BY COUNT(*) DESC) as rank FROM users JOIN user_posts ON users.id = user_posts.user_id WHERE post_country = 'Japan' AND post_hashtags LIKE '%#food%' GROUP BY name, post_country) AS user_ranks WHERE rank <= 3;
+Explanation: This query finds the top 3 users with the most posts containing the hashtag '#food' in Japan. It uses a subquery with the ROW_NUMBER() function to rank the users based on their post count containing the hashtag '#food' in Japan in descending order. The outer query filters the results based on the top 3 users and the specified country and hashtag using the WHERE clause. The JOIN clause combines the two tables based on the user_id and user_id columns.
+
+LLM SUGGESTION:
+SELECT marks FROM users WHERE name = 'pranita'
+
+============================================================
+[2025-04-11 20:45:09]
+USER INPUT:
+-- give me marks of user named pranita
+
+RETRIEVED CONTEXT:
+Prompt: Show all posts related to data privacy in Spanish and the number of likes for each.
+SQL: SELECT posts.content, COUNT(likes.id) AS likes_count FROM posts JOIN likes ON posts.id = likes.post_id WHERE posts.content LIKE '%data privacy%' AND posts.language = 'es' GROUP BY posts.id;
+Explanation: This query selects all the posts related to data privacy in Spanish and the number of likes for each. It joins the posts and likes tables and filters the posts by the specified keyword and language. The query then groups the results by post ID and calculates the count of likes for each post ID.
+
+Prompt: What is the name and text of the most recent comment made by a user from India?
+SQL: SELECT c.text, c.user_id FROM comments c WHERE c.country = 'India' AND c.created_date = (SELECT MAX(created_date) FROM comments WHERE country = 'India')
+Explanation: This query first selects the maximum created_date for comments from India. Then, it selects the text and user_id of the comment with the matching created_date.
+
+Prompt: Who are the top 3 users with the most posts containing the hashtag '#food' in 'Japan'?
+SQL: SELECT name FROM (SELECT name, ROW_NUMBER() OVER (PARTITION BY post_country ORDER BY COUNT(*) DESC) as rank FROM users JOIN user_posts ON users.id = user_posts.user_id WHERE post_country = 'Japan' AND post_hashtags LIKE '%#food%' GROUP BY name, post_country) AS user_ranks WHERE rank <= 3;
+Explanation: This query finds the top 3 users with the most posts containing the hashtag '#food' in Japan. It uses a subquery with the ROW_NUMBER() function to rank the users based on their post count containing the hashtag '#food' in Japan in descending order. The outer query filters the results based on the top 3 users and the specified country and hashtag using the WHERE clause. The JOIN clause combines the two tables based on the user_id and user_id columns.
+
+LLM SUGGESTION:
+SELECT marks FROM users WHERE name = 'Pranita'
