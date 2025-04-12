@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/250988125586997111/4c1c090c4e464a8f98d87fc198acd572/artifacts
+end_time: 1744486083950
+entry_point_name: ''
+experiment_id: '250988125586997111'
+lifecycle_stage: active
+run_id: 4c1c090c4e464a8f98d87fc198acd572
+run_name: intelligent-loon-727
+run_uuid: 4c1c090c4e464a8f98d87fc198acd572
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744486083610
+status: 4
+tags: []
+user_id: Aditya

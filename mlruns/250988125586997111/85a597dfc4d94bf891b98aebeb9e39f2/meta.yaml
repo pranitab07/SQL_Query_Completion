@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/250988125586997111/85a597dfc4d94bf891b98aebeb9e39f2/artifacts
+end_time: 1744486574800
+entry_point_name: ''
+experiment_id: '250988125586997111'
+lifecycle_stage: active
+run_id: 85a597dfc4d94bf891b98aebeb9e39f2
+run_name: gifted-roo-744
+run_uuid: 85a597dfc4d94bf891b98aebeb9e39f2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744486574580
+status: 3
+tags: []
+user_id: Aditya
