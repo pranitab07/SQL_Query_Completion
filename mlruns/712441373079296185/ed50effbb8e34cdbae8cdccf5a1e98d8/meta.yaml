@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/712441373079296185/ed50effbb8e34cdbae8cdccf5a1e98d8/artifacts
+end_time: 1744541381642
+entry_point_name: ''
+experiment_id: '712441373079296185'
+lifecycle_stage: active
+run_id: ed50effbb8e34cdbae8cdccf5a1e98d8
+run_name: marvelous-mule-834
+run_uuid: ed50effbb8e34cdbae8cdccf5a1e98d8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744541381466
+status: 3
+tags: []
+user_id: LAXMIKANT

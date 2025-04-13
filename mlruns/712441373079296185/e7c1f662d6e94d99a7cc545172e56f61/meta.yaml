@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/712441373079296185/e7c1f662d6e94d99a7cc545172e56f61/artifacts
+end_time: 1744543154674
+entry_point_name: ''
+experiment_id: '712441373079296185'
+lifecycle_stage: active
+run_id: e7c1f662d6e94d99a7cc545172e56f61
+run_name: able-cow-55
+run_uuid: e7c1f662d6e94d99a7cc545172e56f61
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744543154488
+status: 3
+tags: []
+user_id: LAXMIKANT

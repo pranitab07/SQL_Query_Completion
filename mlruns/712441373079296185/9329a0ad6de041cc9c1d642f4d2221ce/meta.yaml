@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/712441373079296185/9329a0ad6de041cc9c1d642f4d2221ce/artifacts
+end_time: 1744541265473
+entry_point_name: ''
+experiment_id: '712441373079296185'
+lifecycle_stage: active
+run_id: 9329a0ad6de041cc9c1d642f4d2221ce
+run_name: auspicious-frog-630
+run_uuid: 9329a0ad6de041cc9c1d642f4d2221ce
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744541265274
+status: 3
+tags: []
+user_id: LAXMIKANT
