@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/712441373079296185
+creation_time: 1744487709255
+experiment_id: '712441373079296185'
+last_update_time: 1744487709255
+lifecycle_stage: active
+name: sql-copilot-acceptance-metrics

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/712441373079296185/e39a177156b14b019e5d4e5d2825a04c/artifacts
+end_time: 1744487709866
+entry_point_name: ''
+experiment_id: '712441373079296185'
+lifecycle_stage: active
+run_id: e39a177156b14b019e5d4e5d2825a04c
+run_name: upset-mare-402
+run_uuid: e39a177156b14b019e5d4e5d2825a04c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744487709591
+status: 4
+tags: []
+user_id: LAXMIKANT
