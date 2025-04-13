@@ -1,6 +1,7 @@
 base:
   project: sql_query_completion
   sleep_time: 0.2
+  env_path: C:/Users/Pranita/Desktop/PROJECTS/MLOPS_PROJECT/.env
   window_name: 
     - MySQL Workbench
     - pgAdmin 4
@@ -16,23 +17,21 @@ triggers:
   filler: tab
   key: \t
   quiting: esc
-  remove_ghost:
-    c: ctrl
-    key: z
   speed_write: 0.01
 
 vector_store:
-  type: faiss
-  index_path: data/processed/sql_faiss_index.index
+  type: chromadb
+  path_to_save: data/processed/sql_faiss_index.index
   metadata_path: data/processed/sql_metadata.pkl
   top_k: 5
   
   # only for chroma
   persist_directory: data/processed/chroma
-  collection_name_chroma: my_chroma_collection
+  collection_name_chroma: sql_collection
+  chroma_batch_size: 100000
 
   # only for pinecone
-  index_name: my-index
+  index_name: sql-index
   dimension: 384
   namespace: default
   metric: cosine         # or euclidean, dotproduct

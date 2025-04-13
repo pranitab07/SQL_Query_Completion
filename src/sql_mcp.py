@@ -61,9 +61,9 @@ def format_context(rows):
     context_blocks = []
     for row in rows:
         block = f"""Prompt: {row['sql_prompt']}
-SQL: {row.get('sql', 'N/A')}
-Explanation: {row.get('sql_explanation', 'N/A')}
-Similarity Score: {row.get('similarity_score', 'N/A'):.4f}"""
+            SQL: {row.get('sql', 'N/A')}
+            Explanation: {row.get('sql_explanation', 'N/A')}
+            Similarity Score: {row.get('similarity_score', 'N/A'):.4f}"""
         context_blocks.append(block)
     return "\n\n".join(context_blocks)
 
@@ -84,9 +84,11 @@ def get_real_suggestion(user_input, config):
 def handle_ctrl_c():
     global ghost_displayed, ghost_text, config, last_suggestion, copied_text, context
 
+    # Waiting text to get added in clipboard
     time.sleep(config["base"]["sleep_time"])
     copied_text = pyperclip.paste().strip()
 
+    # Getting the current active window
     active_window = get_active_window_title()
     print(active_window)
     valid_windows = [name.lower() for name in config["base"]["window_name"]]
@@ -119,13 +121,14 @@ def handle_tab():
 
     if ghost_displayed:
         # Remove ghost suggestion
-        pyautogui.hotkey(config["triggers"]["remove_ghost"]["c"], config["triggers"]["remove_ghost"]["key"])
+        pyautogui.hotkey('ctrl', 'z')
+        pyautogui.hotkey('ctrl', 'z')
         pyautogui.press('enter')
 
         # Insert actual suggestion
         pyautogui.write(last_suggestion, interval=config["triggers"]["speed_write"])
 
-        # ✅ Log the accepted suggestion
+        # Log the accepted suggestion
         log_suggestion(
             user_input=copied_text,
             retrieved_context=context,
