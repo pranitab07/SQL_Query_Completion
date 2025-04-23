@@ -1,0 +1,2 @@
+timestamp,model,status,user_input,retrieved_context,llm_suggestion,latency_ms,vector_store,embedding_model
+2025-04-24 00:54:22,distil-whisper-large-v3-en,DISMISSED,/*\nList all the unique equipment types and their corresponding\n total maintenance frequency from the equipment_maintenance table.\n */,,(error generating suggestion),8.142395496368408,pinecone,all-MiniLM-L6-v2

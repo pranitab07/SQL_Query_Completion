@@ -10,14 +10,13 @@ from retrieve_context import get_similar_context
 import datetime
 import os
 import csv
-import time
 
 ghost_displayed = False
 ghost_text = ""
 last_suggestion = ""
 session_memory = []
 
-def log_suggestion(user_input, retrieved_context, suggestion, status, latency_ms):
+def log_suggestion(user_input, retrieved_context, suggestion, status, latency_ms,vector_store,embedding_model):
     os.makedirs("logs", exist_ok=True)
     log_path = "logs/suggestions_log.csv"
     file_exists = os.path.isfile(log_path)
@@ -34,7 +33,9 @@ def log_suggestion(user_input, retrieved_context, suggestion, status, latency_ms
                 "user_input",
                 "retrieved_context",
                 "llm_suggestion",
-                "latency_ms"  # New column
+                "latency_ms",
+                "vector_store",
+                "embedding_model"
             ])
 
         writer.writerow([
@@ -44,7 +45,9 @@ def log_suggestion(user_input, retrieved_context, suggestion, status, latency_ms
             user_input.replace('\n', '\\n'),
             retrieved_context.replace('\n', '\\n'),
             suggestion.replace('\n', '\\n'),
-            latency_ms  # New value
+            latency_ms,
+            vector_store,
+            embedding_model
         ])
         
 def read_param(config_path):
@@ -139,18 +142,21 @@ def handle_tab():
     if ghost_displayed:
         # Remove ghost suggestion
         pyautogui.hotkey('ctrl', 'z')
+        pyautogui.hotkey('ctrl', 'z')
         pyautogui.press('enter')
 
         # Insert actual suggestion
-        pyautogui.write(last_suggestion, interval=config["triggers"]["speed_write"])
+        pyautogui.write(last_suggestion, interval = config["triggers"]["speed_write"])
 
         # Log the accepted suggestion
         log_suggestion(
-            user_input=copied_text,
-            retrieved_context=context,
-            suggestion=last_suggestion,
-            status="ACCEPTED",
-            latency_ms= latency_ms
+            user_input = copied_text,
+            retrieved_context = context,
+            suggestion = last_suggestion,
+            status = "ACCEPTED",
+            latency_ms = latency_ms,
+            vector_store = config["vector_store"]["type"],
+            embedding_model = config["embedding_model"]
         )
 
         ghost_displayed = False
@@ -162,14 +168,18 @@ def handle_any_other_key(e):
         print("🚫 Suggestion dismissed.")
 
         # Remove ghost suggestion
-        pyautogui.hotkey(config["triggers"]["remove_ghost"]["c"], config["triggers"]["remove_ghost"]["key"])
+        pyautogui.hotkey('ctrl','z')
+        pyautogui.hotkey('ctrl','z')
 
         # Log as dismissed
         log_suggestion(
             user_input=copied_text,
             retrieved_context=context,
             suggestion=last_suggestion,
-            status="DISMISSED"
+            status="DISMISSED",
+            latency_ms = latency_ms,
+            vector_store = config["vector_store"]["type"],
+            embedding_model = config["embedding_model"]
         )
 
         ghost_displayed = False
