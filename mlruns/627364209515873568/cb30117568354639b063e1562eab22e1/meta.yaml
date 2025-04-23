@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/627364209515873568/cb30117568354639b063e1562eab22e1/artifacts
+end_time: 1745421002735
+entry_point_name: ''
+experiment_id: '627364209515873568'
+lifecycle_stage: active
+run_id: cb30117568354639b063e1562eab22e1
+run_name: sincere-crow-654
+run_uuid: cb30117568354639b063e1562eab22e1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745421002161
+status: 3
+tags: []
+user_id: LAXMIKANT

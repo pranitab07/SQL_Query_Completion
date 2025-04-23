@@ -10,12 +10,13 @@ from retrieve_context import get_similar_context
 import datetime
 import os
 import csv
+import time
 
 ghost_displayed = False
 ghost_text = ""
 last_suggestion = ""
 
-def log_suggestion(user_input, retrieved_context, suggestion, status):
+def log_suggestion(user_input, retrieved_context, suggestion, status, latency_ms):
     os.makedirs("logs", exist_ok=True)
     log_path = "logs/suggestions_log.csv"
     file_exists = os.path.isfile(log_path)
@@ -31,7 +32,8 @@ def log_suggestion(user_input, retrieved_context, suggestion, status):
                 "status",
                 "user_input",
                 "retrieved_context",
-                "llm_suggestion"
+                "llm_suggestion",
+                "latency_ms"  # New column
             ])
 
         writer.writerow([
@@ -40,7 +42,8 @@ def log_suggestion(user_input, retrieved_context, suggestion, status):
             status,
             user_input.replace('\n', '\\n'),
             retrieved_context.replace('\n', '\\n'),
-            suggestion.replace('\n', '\\n')
+            suggestion.replace('\n', '\\n'),
+            latency_ms  # New value
         ])
         
 def read_param(config_path):
@@ -61,9 +64,9 @@ def format_context(rows):
     context_blocks = []
     for row in rows:
         block = f"""Prompt: {row['sql_prompt']}
-SQL: {row.get('sql', 'N/A')}
-Explanation: {row.get('sql_explanation', 'N/A')}
-Similarity Score: {row.get('similarity_score', 'N/A'):.4f}"""
+            SQL: {row.get('sql', 'N/A')}
+            Explanation: {row.get('sql_explanation', 'N/A')}
+            Similarity Score: {row.get('similarity_score', 'N/A'):.4f}"""
         context_blocks.append(block)
     return "\n\n".join(context_blocks)
 
@@ -82,11 +85,13 @@ def get_real_suggestion(user_input, config):
         return "(error generating suggestion)", ""
 
 def handle_ctrl_c():
-    global ghost_displayed, ghost_text, config, last_suggestion, copied_text, context
+    global ghost_displayed, ghost_text, config, last_suggestion, copied_text, context, latency_ms
 
+    # Waiting text to get added in clipboard
     time.sleep(config["base"]["sleep_time"])
     copied_text = pyperclip.paste().strip()
 
+    # Getting the current active window
     active_window = get_active_window_title()
     print(active_window)
     valid_windows = [name.lower() for name in config["base"]["window_name"]]
@@ -104,7 +109,10 @@ def handle_ctrl_c():
         return
 
     # Get suggestion and context from LLM
+    start_time = time.time()
     suggestion, context = get_real_suggestion(user_input, config)
+    end_time = time.time()
+    latency_ms = (end_time - start_time)
     last_suggestion = suggestion
 
     # Show ghost suggestion as a comment
@@ -119,18 +127,20 @@ def handle_tab():
 
     if ghost_displayed:
         # Remove ghost suggestion
-        pyautogui.hotkey(config["triggers"]["remove_ghost"]["c"], config["triggers"]["remove_ghost"]["key"])
+        pyautogui.hotkey('ctrl', 'z')
+        pyautogui.hotkey('ctrl', 'z')
         pyautogui.press('enter')
 
         # Insert actual suggestion
         pyautogui.write(last_suggestion, interval=config["triggers"]["speed_write"])
 
-        # ✅ Log the accepted suggestion
+        # Log the accepted suggestion
         log_suggestion(
             user_input=copied_text,
             retrieved_context=context,
             suggestion=last_suggestion,
-            status="ACCEPTED"
+            status="ACCEPTED",
+            latency_ms= latency_ms
         )
 
         ghost_displayed = False

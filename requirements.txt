@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # local package
 
@@ -7,6 +8,8 @@
 
 =======
 >>>>>>> dd48844d922dbe8c62bb3887cbf6bd8b920328ca
+=======
+>>>>>>> 972001eb4f8cf3f47122b336f137a94435f6bd54
 # project requirements
 faiss-cpu
 sentence-transformers
@@ -30,9 +33,15 @@ keyboard
 pyautogui
 pygetwindow
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 pyinstaller
 chromadb
 pinecone
 >>>>>>> dd48844d922dbe8c62bb3887cbf6bd8b920328ca
+=======
+pyinstaller
+chromadb
+pinecone
+>>>>>>> 972001eb4f8cf3f47122b336f137a94435f6bd54

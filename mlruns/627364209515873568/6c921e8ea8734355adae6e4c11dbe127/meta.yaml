@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/627364209515873568/6c921e8ea8734355adae6e4c11dbe127/artifacts
+end_time: 1745404448988
+entry_point_name: ''
+experiment_id: '627364209515873568'
+lifecycle_stage: active
+run_id: 6c921e8ea8734355adae6e4c11dbe127
+run_name: industrious-lamb-656
+run_uuid: 6c921e8ea8734355adae6e4c11dbe127
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745404448760
+status: 3
+tags: []
+user_id: Pranita

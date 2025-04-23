@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/627364209515873568/48d50907189248ca9733cdd0518187f7/artifacts
+end_time: 1745404242055
+entry_point_name: ''
+experiment_id: '627364209515873568'
+lifecycle_stage: active
+run_id: 48d50907189248ca9733cdd0518187f7
+run_name: delicate-carp-822
+run_uuid: 48d50907189248ca9733cdd0518187f7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745404241846
+status: 3
+tags: []
+user_id: Pranita

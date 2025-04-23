@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/627364209515873568/9a03eab7432f41d68b6a819ab727e81d/artifacts
+end_time: 1745404282812
+entry_point_name: ''
+experiment_id: '627364209515873568'
+lifecycle_stage: active
+run_id: 9a03eab7432f41d68b6a819ab727e81d
+run_name: able-skunk-552
+run_uuid: 9a03eab7432f41d68b6a819ab727e81d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745404282588
+status: 3
+tags: []
+user_id: Pranita

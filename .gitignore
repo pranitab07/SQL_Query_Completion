@@ -10,6 +10,7 @@ __pycache__/
 conf.py/
 
 .venv/
+chroma
 env/
 build/
 develop-eggs/
@@ -89,12 +90,4 @@ target/
 *.swo
 
 # Mypy cache
-<<<<<<< HEAD
 .mypy_cache/
-=======
-<<<<<<< HEAD
-.mypy_cache/
-=======
-.mypy_cache/
->>>>>>> main
->>>>>>> origin/main
