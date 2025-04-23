@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/627364209515873568/62f230506ee04a13a9955b6c63da3ad7/artifacts
+end_time: 1745404316139
+entry_point_name: ''
+experiment_id: '627364209515873568'
+lifecycle_stage: active
+run_id: 62f230506ee04a13a9955b6c63da3ad7
+run_name: wistful-fly-154
+run_uuid: 62f230506ee04a13a9955b6c63da3ad7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745404315923
+status: 3
+tags: []
+user_id: Pranita

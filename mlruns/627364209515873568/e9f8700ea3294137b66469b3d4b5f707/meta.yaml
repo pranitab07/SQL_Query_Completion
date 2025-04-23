@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/627364209515873568/e9f8700ea3294137b66469b3d4b5f707/artifacts
+end_time: 1745403977422
+entry_point_name: ''
+experiment_id: '627364209515873568'
+lifecycle_stage: active
+run_id: e9f8700ea3294137b66469b3d4b5f707
+run_name: secretive-wasp-556
+run_uuid: e9f8700ea3294137b66469b3d4b5f707
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745403977180
+status: 3
+tags: []
+user_id: Pranita

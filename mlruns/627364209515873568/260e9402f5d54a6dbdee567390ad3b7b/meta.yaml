@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/627364209515873568/260e9402f5d54a6dbdee567390ad3b7b/artifacts
+end_time: 1745403810644
+entry_point_name: ''
+experiment_id: '627364209515873568'
+lifecycle_stage: active
+run_id: 260e9402f5d54a6dbdee567390ad3b7b
+run_name: whimsical-squid-628
+run_uuid: 260e9402f5d54a6dbdee567390ad3b7b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745403810375
+status: 3
+tags: []
+user_id: Pranita

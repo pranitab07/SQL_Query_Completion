@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/627364209515873568/1cb6e37331bc489b882c4018ea926c5c/artifacts
+end_time: 1745406367966
+entry_point_name: ''
+experiment_id: '627364209515873568'
+lifecycle_stage: active
+run_id: 1cb6e37331bc489b882c4018ea926c5c
+run_name: learned-ram-774
+run_uuid: 1cb6e37331bc489b882c4018ea926c5c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745406367720
+status: 3
+tags: []
+user_id: Pranita

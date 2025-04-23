@@ -20,7 +20,7 @@ triggers:
   speed_write: 0.01
 
 vector_store:
-  type: chromadb
+  type: faiss
   path_to_save: data/processed/sql_faiss_index.index
   metadata_path: data/processed/sql_metadata.pkl
   top_k: 5
@@ -38,3 +38,14 @@ vector_store:
   batch_size: 100
 
 embedding_model: all-MiniLM-L6-v2
+
+# mlflow 
+mlflow_config:
+  api_delay: 5
+  rate_limit_delay: 60
+  sample_size: 100
+  artifacts_dir: artifacts
+  experiment_name: sql_models
+  run_name: mlops
+  registered_model_name: ElasticNet
+  remote_server_uri: http://127.0.0.1:5000
