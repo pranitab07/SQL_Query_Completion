@@ -15,6 +15,7 @@ import time
 ghost_displayed = False
 ghost_text = ""
 last_suggestion = ""
+session_memory = []
 
 def log_suggestion(user_input, retrieved_context, suggestion, status, latency_ms):
     os.makedirs("logs", exist_ok=True)
@@ -76,9 +77,19 @@ def get_real_suggestion(user_input, config):
         similar_rows = get_similar_context(user_input, config_path="params.yaml", top_k=config["vector_store"]["top_k"])
         context = format_context(similar_rows)
 
-        # Get the LLM response
-        response = query_groq_llama(user_input=user_input, context=context, config=config)
+        # Optional: Include session memory if enabled
+        full_context = context
+        if config.get("memory", {}).get("enable", False):
+            limit = config["memory"].get("limit", 3)
+            session_context = "\n\n".join(session_memory[-limit:])
+            if session_context:
+                full_context = f"{session_context}\n\n{context}"
 
+        response = query_groq_llama(user_input=user_input, context=full_context, config=config)
+
+        if config.get("memory", {}).get("enable", False):
+            session_memory.append(f"Prompt: {user_input}\nResponse: {response}")
+        
         return response, context
     except Exception as e:
         print(f"[ERROR] Failed to get suggestion: {e}")
@@ -172,6 +183,9 @@ def main(config_path):
     # We don’t need to load FAISS or metadata here — handled in retrieve_context
     keyboard.add_hotkey(config["triggers"]["initiater"], handle_ctrl_c)
     keyboard.add_hotkey(config["triggers"]["filler"], handle_tab)
+
+    # Add memory reset hotkey
+    keyboard.add_hotkey("ctrl+shift+c", lambda: (session_memory.clear(), print("🧹 Session memory cleared")))
 
     for key in [chr(i) for i in range(32, 127)]:
         if key != config["triggers"]["key"]:

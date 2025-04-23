@@ -49,3 +49,7 @@ mlflow_config:
   run_name: mlops
   registered_model_name: ElasticNet
   remote_server_uri: http://127.0.0.1:5000
+
+memory:
+  enable: true
+  limit: 3
