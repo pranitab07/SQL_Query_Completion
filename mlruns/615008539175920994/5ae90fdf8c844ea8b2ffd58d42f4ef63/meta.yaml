@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/615008539175920994/5ae90fdf8c844ea8b2ffd58d42f4ef63/artifacts
+end_time: 1745420478287
+entry_point_name: ''
+experiment_id: '615008539175920994'
+lifecycle_stage: active
+run_id: 5ae90fdf8c844ea8b2ffd58d42f4ef63
+run_name: victorious-toad-614
+run_uuid: 5ae90fdf8c844ea8b2ffd58d42f4ef63
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745420477931
+status: 3
+tags: []
+user_id: Aditya

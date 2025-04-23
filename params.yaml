@@ -1,6 +1,7 @@
 base:
   project: sql_query_completion
   sleep_time: 0.2
+  env_path: C:/Users/Pranita/Desktop/PROJECTS/MLOPS_PROJECT/.env
   window_name: 
     - MySQL Workbench
     - pgAdmin 4
@@ -16,26 +17,35 @@ triggers:
   filler: tab
   key: \t
   quiting: esc
-  remove_ghost:
-    c: ctrl
-    key: z
   speed_write: 0.01
 
 vector_store:
   type: faiss
-  index_path: data/processed/sql_faiss_index.index
+  path_to_save: data/processed/sql_faiss_index.index
   metadata_path: data/processed/sql_metadata.pkl
   top_k: 5
   
   # only for chroma
   persist_directory: data/processed/chroma
-  collection_name_chroma: my_chroma_collection
+  collection_name_chroma: sql_collection
+  chroma_batch_size: 100000
 
   # only for pinecone
-  index_name: my-index
+  index_name: sql-index
   dimension: 384
   namespace: default
   metric: cosine         # or euclidean, dotproduct
   batch_size: 100
 
 embedding_model: all-MiniLM-L6-v2
+
+# mlflow 
+mlflow_config:
+  api_delay: 5
+  rate_limit_delay: 60
+  sample_size: 100
+  artifacts_dir: artifacts
+  experiment_name: sql_models
+  run_name: mlops
+  registered_model_name: ElasticNet
+  remote_server_uri: http://127.0.0.1:5000
