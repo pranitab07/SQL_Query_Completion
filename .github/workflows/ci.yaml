@@ -10,6 +10,7 @@ jobs:
     env:
       PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
       PINECONE_ENVIRONMENT: ${{ secrets.PINECONE_ENVIRONMENT }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
     steps:
     - name: Checkout code
@@ -25,6 +26,25 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Debug environment variables
+      run: |
+        echo "Checking environment variables..."
+        if [ -z "$PINECONE_API_KEY" ]; then
+          echo "PINECONE_API_KEY is not set in workflow"
+        else
+          echo "PINECONE_API_KEY is set in workflow (value hidden)"
+        fi
+        if [ -z "$PINECONE_ENVIRONMENT" ]; then
+          echo "PINECONE_ENVIRONMENT is not set in workflow"
+        else
+          echo "PINECONE_ENVIRONMENT is set in workflow (value: $PINECONE_ENVIRONMENT)"
+        fi
+        if [ -z "$GROQ_API_KEY" ]; then
+          echo "GROQ_API_KEY is not set in workflow"
+        else
+          echo "GROQ_API_KEY is set in workflow (value hidden)"
+        fi
+
     - name: Run syntax check
       run: python -m py_compile src/sql_mcp.py
 
@@ -32,3 +52,5 @@ jobs:
       run: |
         python src/retrieve_context.py
         echo "Vector store connected successfully"
+
+    
