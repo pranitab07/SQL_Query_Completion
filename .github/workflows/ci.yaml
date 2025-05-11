@@ -42,9 +42,9 @@ jobs:
       run: |
         if [ "$VECTOR_STORE" != "pinecone" ]; then
           echo "Building vector store for $VECTOR_STORE..."
-          python src/build_vector_store.py
+          python src/build_vector_stores.py
         else
-          echo "Skipping build_vector_store.py because vector store is Pinecone"
+          echo "Skipping build_vector_stores.py because vector store is Pinecone"
         fi
 
     - name: Vector store connection
