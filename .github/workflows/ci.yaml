@@ -7,6 +7,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+      PINECONE_ENVIRONMENT: ${{ secrets.PINECONE_ENVIRONMENT }}
 
     steps:
     - name: Checkout code
