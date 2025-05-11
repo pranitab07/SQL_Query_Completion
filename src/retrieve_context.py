@@ -7,9 +7,11 @@ from dotenv import dotenv_values
 import chromadb
 import argparse
 import yaml
+import os
+from loading_data import get_data
 
 # Load environment variables from .env
-config_db = dotenv_values(r"C:\Users\Aditya\OneDrive\Desktop\SQL Query Completion\.env")
+config_db = dotenv_values(os.getenv())
 
 def read_param(config_path):
     with open(config_path) as yaml_file:
@@ -51,6 +53,11 @@ def retrieve_from_pinecone(query, config, top_k):
     index_name = config["vector_store"]["index_name"]
     namespace = config["vector_store"]["namespace"]
     metadata_path = config["vector_store"]["metadata_path"]
+
+    # save the metadata
+    df = get_data(config)
+    with open(metadata_path, "wb") as f:
+        pickle.dump(df.to_dict("records"), f)
 
     # Initialize Pinecone client
     pc = Pinecone(api_key=api_key)
