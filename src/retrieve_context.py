@@ -43,7 +43,7 @@ def retrieve_from_faiss(query, config, top_k):
     ]
     return results
 
-def retrieve_from_pinecone(query, config, top_k):
+def retrieve_from_pinecone(query, config,config_path, top_k):
     # Pinecone API details
     api_key = os.getenv("PINECONE_API_KEY")
 
@@ -53,7 +53,7 @@ def retrieve_from_pinecone(query, config, top_k):
     metadata_path = config["vector_store"]["metadata_path"]
 
     # save the metadata
-    df = get_data(config)
+    df = get_data(config_path)
     with open(metadata_path, "wb") as f:
         pickle.dump(df.to_dict("records"), f)
 
@@ -128,7 +128,7 @@ def get_similar_context(query, config_path="params.yaml", top_k=None):
     if store_type == "faiss":
         return retrieve_from_faiss(query, config, top_k)
     elif store_type == "pinecone":
-        return retrieve_from_pinecone(query, config, top_k)
+        return retrieve_from_pinecone(query, config,config_path, top_k)
     elif store_type == "chromadb":
         return retrieve_from_chromadb(query, config, top_k)
     else:
