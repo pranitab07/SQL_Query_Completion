@@ -25,7 +25,7 @@ jobs:
     - name: Run syntax check
       run: python -m py_compile src/sql_mcp.py
 
-    - name: Build Vector Store
+    - name: Vector store connection
       run: |
-        python src/build_vector_stores.py
-        echo "Vector store built successfully"
+        python src/retrieve_context.py
+        echo "Vector store connected successfully"
