@@ -10,7 +10,7 @@ import argparse
 import yaml
 
 # Load environment variables from .env
-config_db = dotenv_values("C:/Users/Pranita/Desktop/PROJECTS/MLOPS_PROJECT/.env")
+config_db = dotenv_values("C:\Users\Aditya\OneDrive\Desktop\SQL Query Completion\.env")
 
 # defination for reading YAML config
 def read_param(config_path):
