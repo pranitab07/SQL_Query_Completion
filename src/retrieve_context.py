@@ -10,8 +10,6 @@ import yaml
 import os
 from loading_data import get_data
 
-# Load environment variables from .env
-config_db = dotenv_values(os.getenv())
 
 def read_param(config_path):
     with open(config_path) as yaml_file:
@@ -47,7 +45,7 @@ def retrieve_from_faiss(query, config, top_k):
 
 def retrieve_from_pinecone(query, config, top_k):
     # Pinecone API details
-    api_key = config_db.get("PINECONE_API_KEY")
+    api_key = os.getenv("PINECONE_API_KEY")
 
     # Vector store config
     index_name = config["vector_store"]["index_name"]
