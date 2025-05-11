@@ -42,6 +42,7 @@ jobs:
       run: |
         if [ "$VECTOR_STORE" != "pinecone" ]; then
           echo "Building vector store for $VECTOR_STORE..."
+          python src/loading_data.py
           python src/build_vector_stores.py
         else
           echo "Skipping build_vector_stores.py because vector store is Pinecone"
