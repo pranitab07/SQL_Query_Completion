@@ -32,6 +32,21 @@ jobs:
     - name: Create data directories
       run: mkdir -p data/raw data/processed
 
+    - name: Get vector store type from params.yaml
+      id: get-vectorstore
+      run: |
+        VECTOR_STORE=$(python -c "import yaml; print(yaml.safe_load(open('params.yaml'))['vector_store'])")
+        echo "VECTOR_STORE=$VECTOR_STORE" >> $GITHUB_ENV
+
+    - name: Conditionally build vector store
+      run: |
+        if [ "$VECTOR_STORE" != "pinecone" ]; then
+          echo "Building vector store for $VECTOR_STORE..."
+          python src/build_vector_store.py
+        else
+          echo "Skipping build_vector_store.py because vector store is Pinecone"
+        fi
+
     - name: Vector store connection
       run: |
         python src/retrieve_context.py
