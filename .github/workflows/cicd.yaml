@@ -1,0 +1,31 @@
+name: SQL Copilot CI
+
+on:
+  push:
+    branches: [ AI ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run syntax check
+      run: python -m py_compile src/sql_mcp.py
+
+    - name: Build Vector Store
+      run: |
+        python src/build_vector_stores.py
+        echo "Vector store built successfully"

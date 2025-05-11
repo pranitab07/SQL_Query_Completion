@@ -23,7 +23,7 @@ vector_store:
   type: pinecone
   path_to_save: data/processed/sql_faiss_index.index
   metadata_path: data/processed/sql_metadata.pkl
-  top_k: 5
+  top_k: 5 # for similarity search
   
   # only for chroma
   persist_directory: data/processed/chroma
@@ -46,8 +46,7 @@ mlflow_config:
   sample_size: 100
   artifacts_dir: artifacts
   experiment_name: sql_models
-  run_name: mlops
-  registered_model_name: ElasticNet
+  registered_model_name: LLama_3.0
   remote_server_uri: http://127.0.0.1:5000
 
 memory:

@@ -6,9 +6,11 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-log/
+logs/
 .Python
 .venv/
+mlartifacts/
+mlruns/
 chroma
 env/
 build/

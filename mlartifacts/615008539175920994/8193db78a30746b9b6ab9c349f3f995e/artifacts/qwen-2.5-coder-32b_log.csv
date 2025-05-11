@@ -1,2 +1,0 @@
-timestamp,model,status,user_input,retrieved_context,llm_suggestion,latency_ms,vector_store,embedding_model
-2025-04-24 00:42:20,qwen-2.5-coder-32b,DISMISSED,"/*\nget me the highest marks of class, \nwith student name and roll no,\nand also get the 2nd topper\n*/",,(error generating suggestion),5.847874879837036,faiss,all-MiniLM-L6-v2
