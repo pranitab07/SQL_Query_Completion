@@ -9,9 +9,6 @@ import os
 import argparse
 import yaml
 
-# Load environment variables from .env
-config_db = dotenv_values("C:/Users/Pranita/Desktop/PROJECTS/MLOPS_PROJECT/.env")
-
 # defination for reading YAML config
 def read_param(config_path):
     with open(config_path) as yaml_file:
@@ -105,8 +102,8 @@ def build_chromedb_index(df,texts, embeddings, config):
 # building pinecone
 def build_pinecone_index(df,texts, embeddings, config):
     # Get secrets from environment
-    api_key = config_db.get("PINECONE_API_KEY")
-    environment = config_db.get("PINECONE_ENVIRONMENT")
+    api_key = os.getenv("PINECONE_API_KEY")
+    environment = os.getenv("PINECONE_ENVIRONMENT")
 
     # Config values
     index_name = config["vector_store"]["index_name"]

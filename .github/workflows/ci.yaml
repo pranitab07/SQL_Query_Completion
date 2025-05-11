@@ -35,7 +35,7 @@ jobs:
     - name: Get vector store type from params.yaml
       id: get-vectorstore
       run: |
-        VECTOR_STORE=$(python -c "import yaml; print(yaml.safe_load(open('params.yaml'))['vector_store'])")
+        VECTOR_STORE=$(python -c "import yaml; print(yaml.safe_load(open('params.yaml'))['vector_store']['type'])")
         echo "VECTOR_STORE=$VECTOR_STORE" >> $GITHUB_ENV
 
     - name: Conditionally build vector store
