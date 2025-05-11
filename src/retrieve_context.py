@@ -7,9 +7,10 @@ from dotenv import dotenv_values
 import chromadb
 import argparse
 import yaml
+import os
+from dotenv import load_dotenv
 
-# Load environment variables from .env
-config_db = dotenv_values(r"C:\Users\Aditya\OneDrive\Desktop\SQL Query Completion\.env")
+load_dotenv()
 
 def read_param(config_path):
     with open(config_path) as yaml_file:
@@ -45,7 +46,7 @@ def retrieve_from_faiss(query, config, top_k):
 
 def retrieve_from_pinecone(query, config, top_k):
     # Pinecone API details
-    api_key = config_db.get("PINECONE_API_KEY")
+    api_key = os.environ.get("PINECONE_API_KEY")
 
     # Vector store config
     index_name = config["vector_store"]["index_name"]
