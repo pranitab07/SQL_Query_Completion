@@ -48,6 +48,14 @@ def retrieve_from_pinecone(query, config, top_k):
     # Pinecone API details
     api_key = os.environ.get("PINECONE_API_KEY")
 
+        # Check if API key exists
+    if not api_key:
+        raise ValueError("Pinecone API key not found. Please set the PINECONE_API_KEY environment variable.")
+    
+    environment = os.environ.get("PINECONE_ENVIRONMENT")
+    if not environment:
+        print("Warning: PINECONE_ENVIRONMENT not set. Using default Pinecone environment.")
+
     # Vector store config
     index_name = config["vector_store"]["index_name"]
     namespace = config["vector_store"]["namespace"]
