@@ -1,8 +1,8 @@
-name: SQL Copilot CI main
+name: SQL Copilot CICD
 
 on:
   push:
-    branches: [ AI ]
+    branches: [ main ]
 
 jobs:
   build-and-test:
