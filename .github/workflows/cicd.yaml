@@ -1,4 +1,4 @@
-name: SQL Copilot CI
+name: SQL Copilot CI main
 
 on:
   push:
