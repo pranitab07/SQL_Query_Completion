@@ -8,9 +8,8 @@ import chromadb
 import argparse
 import yaml
 import os
-from dotenv import load_dotenv
+from loading_data import get_data
 
-load_dotenv()
 
 def read_param(config_path):
     with open(config_path) as yaml_file:
@@ -44,22 +43,19 @@ def retrieve_from_faiss(query, config, top_k):
     ]
     return results
 
-def retrieve_from_pinecone(query, config, top_k):
+def retrieve_from_pinecone(query, config,config_path, top_k):
     # Pinecone API details
-    api_key = os.environ.get("PINECONE_API_KEY")
-
-        # Check if API key exists
-    if not api_key:
-        raise ValueError("Pinecone API key not found. Please set the PINECONE_API_KEY environment variable.")
-    
-    environment = os.environ.get("PINECONE_ENVIRONMENT")
-    if not environment:
-        print("Warning: PINECONE_ENVIRONMENT not set. Using default Pinecone environment.")
+    api_key = os.getenv("PINECONE_API_KEY")
 
     # Vector store config
     index_name = config["vector_store"]["index_name"]
     namespace = config["vector_store"]["namespace"]
     metadata_path = config["vector_store"]["metadata_path"]
+
+    # save the metadata
+    df = get_data(config_path)
+    with open(metadata_path, "wb") as f:
+        pickle.dump(df.to_dict("records"), f)
 
     # Initialize Pinecone client
     pc = Pinecone(api_key=api_key)
@@ -132,7 +128,7 @@ def get_similar_context(query, config_path="params.yaml", top_k=None):
     if store_type == "faiss":
         return retrieve_from_faiss(query, config, top_k)
     elif store_type == "pinecone":
-        return retrieve_from_pinecone(query, config, top_k)
+        return retrieve_from_pinecone(query, config,config_path, top_k)
     elif store_type == "chromadb":
         return retrieve_from_chromadb(query, config, top_k)
     else:

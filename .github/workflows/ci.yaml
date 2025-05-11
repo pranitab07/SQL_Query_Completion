@@ -48,9 +48,12 @@ jobs:
     - name: Run syntax check
       run: python -m py_compile src/sql_mcp.py
 
+    - name: Create data directories
+      run: mkdir -p data/raw data/processed
+
     - name: Vector store connection
       run: |
         python src/retrieve_context.py
         echo "Vector store connected successfully"
-# test 10
+# test 12
     
