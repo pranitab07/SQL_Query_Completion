@@ -51,7 +51,7 @@ jobs:
     - name: Vector store connection
       run: |
         python src/retrieve_context.py
-        echo "Vector store connected successfully!"
+        echo "Vector store connected successfully"
 
     - name: SQL Query Pilot
       run: python src/sql_mcp.py

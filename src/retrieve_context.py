@@ -3,7 +3,6 @@ import pickle
 from pinecone import Pinecone
 from sentence_transformers import SentenceTransformer
 import numpy as np
-from dotenv import dotenv_values
 import chromadb
 import argparse
 import yaml
