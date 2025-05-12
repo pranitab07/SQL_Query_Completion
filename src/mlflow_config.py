@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 mlflow.set_tracking_uri("http://localhost:5000")
 mlflow.set_experiment("sql-copilot-acceptance-metrics")
 
-def log_acceptance_metrics_per_model(config_path, csv_path=f"logs/llama-3.3-70b-versatile_log.csv"):
+def log_acceptance_metrics_per_model(config_path, csv_path=f"logs/suggestions_log.csv"):
     # Load the configuration
     config = read_param(config_path)
     # Load the full CSV
