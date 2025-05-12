@@ -10,7 +10,6 @@ import yaml
 import os
 from loading_data import get_data
 
-
 def read_param(config_path):
     with open(config_path) as yaml_file:
         config = yaml.safe_load(yaml_file)
