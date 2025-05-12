@@ -1,6 +1,6 @@
 import faiss
 import pickle
-from pinecone import Pinecone
+import pinecone
 from sentence_transformers import SentenceTransformer
 import numpy as np
 from dotenv import dotenv_values
@@ -58,8 +58,8 @@ def retrieve_from_pinecone(query, config,config_path, top_k):
         pickle.dump(df.to_dict("records"), f)
 
     # Initialize Pinecone client
-    pc = Pinecone(api_key=api_key)
-    index = pc.Index(index_name)
+    pinecone.init(api_key=api_key)
+    index = pinecone.Index(config["vector_store"]["index_name"])
 
     # Load embedding model
     model = SentenceTransformer(config["embedding_model"])

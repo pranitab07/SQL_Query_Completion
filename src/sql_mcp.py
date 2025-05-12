@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+
 import pyperclip
 import keyboard
 import pyautogui
@@ -8,9 +12,12 @@ import argparse
 from llm import query_groq_llama
 from retrieve_context import get_similar_context
 import datetime
-import os
 import csv
 import time
+
+# Set working directory to where the executable was bundled
+if getattr(sys, 'frozen', False):
+    os.chdir(sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.dirname(sys.executable))
 
 ghost_displayed = False
 ghost_text = ""
