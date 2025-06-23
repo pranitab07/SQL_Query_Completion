@@ -1,7 +1,7 @@
 base:
   project: sql_query_completion
   sleep_time: 0.2
-  env_path: C:/Users/Pranita/Desktop/PROJECTS/MLOPS_PROJECT/.env
+  env_path: C:\Users\Aditya\OneDrive\Desktop\SQL Query Completion\.env
   window_name: 
     - MySQL Workbench
     - pgAdmin 4
@@ -17,6 +17,9 @@ triggers:
   filler: tab
   key: \t
   quiting: esc
+  remove_ghost:
+  c: ctrl
+  key: z
   speed_write: 0.01
 
 vector_store:
