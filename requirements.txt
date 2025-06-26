@@ -23,3 +23,7 @@ pygetwindow
 pyinstaller
 chromadb
 pinecone
+PyYAML
+SQLAlchemy>=2.0
+pymysql>=1.0
+psycopg2-binary>=2.9

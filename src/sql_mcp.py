@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+
 import pyperclip
 import keyboard
 import pyautogui
@@ -8,15 +12,20 @@ import argparse
 from llm import query_groq_llama
 from retrieve_context import get_similar_context
 import datetime
-import os
 import csv
+import time
+from db_schema_utils import read_db_config, create_connection, extract_schema_with_examples
+
+# Set working directory to where the executable was bundled
+if getattr(sys, 'frozen', False):
+    os.chdir(sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.dirname(sys.executable))
 
 ghost_displayed = False
 ghost_text = ""
 last_suggestion = ""
 session_memory = []
 
-def log_suggestion(user_input, retrieved_context, suggestion, status, latency_ms,vector_store,embedding_model):
+def log_suggestion(user_input, retrieved_context, suggestion, status, latency_ms, db_schema):
     os.makedirs("logs", exist_ok=True)
     log_path = "logs/suggestions_log.csv"
     file_exists = os.path.isfile(log_path)
@@ -32,22 +41,24 @@ def log_suggestion(user_input, retrieved_context, suggestion, status, latency_ms
                 "status",
                 "user_input",
                 "retrieved_context",
+                "db_name",
+                "db_schema",        
                 "llm_suggestion",
-                "latency_ms",
-                "vector_store",
-                "embedding_model"
+                "latency_ms"
             ])
 
+        db_name     = config["db"]["name"]
+        schema_snip = db_schema.replace('\n', '\\n')[:200]
         writer.writerow([
             datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             config['llm']['model_name'],
             status,
             user_input.replace('\n', '\\n'),
             retrieved_context.replace('\n', '\\n'),
+            db_name,           # ← new field
+            schema_snip,       # ← new field
             suggestion.replace('\n', '\\n'),
-            latency_ms,
-            vector_store,
-            embedding_model
+            latency_ms
         ])
         
 def read_param(config_path):
@@ -76,30 +87,59 @@ def format_context(rows):
 
 def get_real_suggestion(user_input, config):
     try:
-        # Retrieve similar context rows and format them
-        similar_rows = get_similar_context(user_input, config_path="params.yaml", top_k=config["vector_store"]["top_k"])
-        context = format_context(similar_rows)
+        # Try to load user DB schema
+        try:
+            db_cfg = read_db_config()
+            engine = create_connection(db_cfg)
+            db_schema_context = extract_schema_with_examples(
+                engine,
+                db_cfg["name"],
+                sample_rows=db_cfg.get("sample_rows", 2)
+            )
+            # cache it for later
+            get_real_suggestion._cached_schema = db_schema_context
+        except Exception as db_err:
+            print(f"[WARN] DB schema load failed—using cached or empty. ({db_err})")
+            db_schema_context = getattr(get_real_suggestion, "_cached_schema", "")
 
-        # Optional: Include session memory if enabled
-        full_context = context
+        # Retrieve similar context rows and format them
+        similar_rows = get_similar_context(
+            user_input,
+            config_path="params.yaml",
+            top_k=config["vector_store"]["top_k"]
+        )
+        rag_context = format_context(similar_rows)
+
+        # Include session memory if enabled
         if config.get("memory", {}).get("enable", False):
             limit = config["memory"].get("limit", 3)
             session_context = "\n\n".join(session_memory[-limit:])
-            if session_context:
-                full_context = f"{session_context}\n\n{context}"
+        else:
+            session_context = ""
+            
+        # Build full LLM prompt context
+        parts = [db_schema_context, session_context, rag_context]
+        full_context = "\n\n".join([p for p in parts if p]).strip()
+        
+        # Call LLM
+        response = query_groq_llama(
+            user_input=user_input,
+            context=full_context,
+            config=config
+        )
 
-        response = query_groq_llama(user_input=user_input, context=full_context, config=config)
-
+        # Append to session memory if enabled
         if config.get("memory", {}).get("enable", False):
             session_memory.append(f"Prompt: {user_input}\nResponse: {response}")
-        
-        return response, context
+
+        return response, rag_context, db_schema_context
+    
     except Exception as e:
         print(f"[ERROR] Failed to get suggestion: {e}")
-        return "(error generating suggestion)", ""
+        return "(error generating suggestion)", "", ""
 
 def handle_ctrl_c():
-    global ghost_displayed, ghost_text, config, last_suggestion, copied_text, context, latency_ms
+    global ghost_displayed, ghost_text, config, last_suggestion, copied_text, context, latency_ms, db_schema_context
 
     # Waiting text to get added in clipboard
     time.sleep(config["base"]["sleep_time"])
@@ -124,7 +164,7 @@ def handle_ctrl_c():
 
     # Get suggestion and context from LLM
     start_time = time.time()
-    suggestion, context = get_real_suggestion(user_input, config)
+    suggestion, context, db_schema_context = get_real_suggestion(copied_text, config)
     end_time = time.time()
     latency_ms = (end_time - start_time)
     last_suggestion = suggestion
@@ -137,7 +177,7 @@ def handle_ctrl_c():
     ghost_displayed = True
 
 def handle_tab():
-    global ghost_displayed, ghost_text, last_suggestion, copied_text, context, config
+    global ghost_displayed, ghost_text, last_suggestion, copied_text, context, config, latency_ms, db_schema_context
 
     if ghost_displayed:
         # Remove ghost suggestion
@@ -150,26 +190,24 @@ def handle_tab():
 
         # Log the accepted suggestion
         log_suggestion(
-            user_input = copied_text,
-            retrieved_context = context,
-            suggestion = last_suggestion,
-            status = "ACCEPTED",
-            latency_ms = latency_ms,
-            vector_store = config["vector_store"]["type"],
-            embedding_model = config["embedding_model"]
+            user_input=copied_text,
+            retrieved_context=context,
+            suggestion=last_suggestion,
+            status="ACCEPTED",
+            latency_ms=latency_ms,
+            db_schema=db_schema_context
         )
-
         ghost_displayed = False
 
 def handle_any_other_key(e):
-    global ghost_displayed, copied_text, context, last_suggestion, config
+    global ghost_displayed, copied_text, context, last_suggestion, config, db_schema_context
 
     if ghost_displayed:
         print("🚫 Suggestion dismissed.")
 
         # Remove ghost suggestion
-        pyautogui.hotkey('ctrl','z')
-        pyautogui.hotkey('ctrl','z')
+        pyautogui.hotkey(config["triggers"]["remove_ghost"]["c"],
+                         config["triggers"]["remove_ghost"]["key"])
 
         # Log as dismissed
         log_suggestion(
@@ -177,11 +215,9 @@ def handle_any_other_key(e):
             retrieved_context=context,
             suggestion=last_suggestion,
             status="DISMISSED",
-            latency_ms = latency_ms,
-            vector_store = config["vector_store"]["type"],
-            embedding_model = config["embedding_model"]
+            latency_ms=0,
+            db_schema=db_schema_context
         )
-
         ghost_displayed = False
 
 def main(config_path):
@@ -189,6 +225,7 @@ def main(config_path):
     global config
 
     config = read_param(config_path)
+    config["db"] = read_db_config()
 
     # We don’t need to load FAISS or metadata here — handled in retrieve_context
     keyboard.add_hotkey(config["triggers"]["initiater"], handle_ctrl_c)

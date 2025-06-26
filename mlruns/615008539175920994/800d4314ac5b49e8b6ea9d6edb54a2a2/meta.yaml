@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/615008539175920994/800d4314ac5b49e8b6ea9d6edb54a2a2/artifacts
+end_time: 1748961876846
+entry_point_name: ''
+experiment_id: '615008539175920994'
+lifecycle_stage: active
+run_id: 800d4314ac5b49e8b6ea9d6edb54a2a2
+run_name: gifted-auk-998
+run_uuid: 800d4314ac5b49e8b6ea9d6edb54a2a2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748961876420
+status: 3
+tags: []
+user_id: Aditya

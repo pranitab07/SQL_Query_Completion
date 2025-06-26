@@ -1,7 +1,7 @@
 import pandas as pd
 import faiss
-import chromadb # type:ignore
-from pinecone import Pinecone, ServerlessSpec # type: ignore
+import chromadb 
+from pinecone import Pinecone, ServerlessSpec 
 from dotenv import dotenv_values
 import pickle
 from sentence_transformers import SentenceTransformer
