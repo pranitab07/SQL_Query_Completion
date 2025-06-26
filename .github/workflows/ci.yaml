@@ -2,7 +2,7 @@ name: QueryPilot CICD
 
 on:
   push:
-    branches: [ AI ]
+    branches: [ main ]
 
 jobs:
   build-and-test:
