@@ -1,8 +1,8 @@
-name: SQL Copilot CICD
+name: QueryPilot CICD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ AI ]
 
 jobs:
   build-and-test:
@@ -52,3 +52,4 @@ jobs:
       run: |
         python src/retrieve_context.py
         echo "Vector store connected successfully"
+    
