@@ -1,7 +1,11 @@
 import pandas as pd
 import faiss
-import chromadb 
-from pinecone import Pinecone, ServerlessSpec 
+import chromadb
+import pinecone
+import yaml
+config = yaml.safe_load(open("params.yaml"))
+if config["vector_store"]["type"] == "pinecone":
+    from pinecone import Pinecone, ServerlessSpec
 from dotenv import dotenv_values
 import pickle
 from sentence_transformers import SentenceTransformer

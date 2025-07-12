@@ -57,8 +57,8 @@ def retrieve_from_pinecone(query, config,config_path, top_k):
         pickle.dump(df.to_dict("records"), f)
 
     # Initialize Pinecone client
-    pinecone.init(api_key=api_key)
-    index = pinecone.Index(config["vector_store"]["index_name"])
+    pc = Pinecone(api_key=api_key)
+    index = pc.Index(config["vector_store"]["index_name"])
 
     # Load embedding model
     model = SentenceTransformer(config["embedding_model"])

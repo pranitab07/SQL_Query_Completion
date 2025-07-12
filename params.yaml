@@ -23,13 +23,13 @@ triggers:
   speed_write: 0.01
 
 vector_store:
-  type: faiss
+  type: chromadb
   path_to_save: data/processed/sql_faiss_index.index
   metadata_path: data/processed/sql_metadata.pkl
   top_k: 5
   
   # only for chroma
-  persist_directory: data/processed/chroma
+  persist_directory: ./chroma
   collection_name_chroma: sql_collection
   chroma_batch_size: 100000
 
