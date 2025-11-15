@@ -67,6 +67,7 @@ target/
 # Database
 *.db
 *.rdb
+db_config.yaml
 
 # Pycharm
 .idea
