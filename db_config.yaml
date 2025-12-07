@@ -1,8 +1,8 @@
 db:
   type: mysql         
   user: root
-  password: 'your_password'
+  password: # enter your password
   host: localhost
   port: 3306
-  name: 'your_db_name'
+  name: # enter db name
   sample_rows: 2

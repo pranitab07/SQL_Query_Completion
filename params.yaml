@@ -23,7 +23,7 @@ triggers:
   speed_write: 0.01
 
 vector_store:
-  type: chromadb
+  type: faiss
   path_to_save: data/processed/sql_faiss_index.index
   metadata_path: data/processed/sql_metadata.pkl
   top_k: 5
