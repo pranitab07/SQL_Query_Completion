@@ -1,8 +1,0 @@
-db:
-  type: mysql
-  user: root
-  password: ${DB_PASSWORD}
-  host: localhost
-  port: 3306
-  name: ${DB_NAME}
-  sample_rows: 2
