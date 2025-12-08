@@ -1,8 +1,8 @@
 db:
-  type: mysql
-  user: root
-  password: ${DB_PASSWORD}
+  type: mysql  # Change to 'postgres' if using PostgreSQL
+  user: root   # Your database username
+  password: ${DB_PASSWORD}  # Uses value from .env
   host: localhost
-  port: 3306
-  name: ${DB_NAME}
+  port: 3306  # Use 5432 for PostgreSQL
+  name: ${DB_NAME}  # Uses value from .env
   sample_rows: 2
