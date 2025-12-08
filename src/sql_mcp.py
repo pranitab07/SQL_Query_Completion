@@ -185,7 +185,7 @@ def handle_tab():
         pyautogui.press('enter')
 
         # Insert actual suggestion
-        pyautogui.write(last_suggestion, interval=config["triggers"]["speed_write"])
+        pyautogui.write(last_suggestion, interval = config["triggers"]["speed_write"])
 
         # Log the accepted suggestion
         log_suggestion(

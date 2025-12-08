@@ -1,9 +1,8 @@
 import faiss
 import pickle
-import pinecone
+from pinecone import Pinecone
 from sentence_transformers import SentenceTransformer
 import numpy as np
-from dotenv import dotenv_values
 import chromadb
 import argparse
 import yaml
@@ -22,10 +21,15 @@ def load_metadata_from_pickle(metadata_path):
     print(f"📄 Loaded {len(metadata)} metadata entries from {metadata_path}")
     return metadata
 
-def retrieve_from_faiss(query, config, top_k):
+def retrieve_from_faiss(query, config,config_path , top_k):
 
     # Get FAISS db
     index = faiss.read_index(config["vector_store"]["path_to_save"])
+
+    # save the metadata
+    df = get_data(config_path)
+    with open(config["vector_store"]["metadata_path"], "wb") as f:
+        pickle.dump(df.to_dict("records"), f)
 
     # Get metadata
     metadata = load_metadata_from_pickle(config["vector_store"]["metadata_path"])
@@ -57,8 +61,8 @@ def retrieve_from_pinecone(query, config,config_path, top_k):
         pickle.dump(df.to_dict("records"), f)
 
     # Initialize Pinecone client
-    pinecone.init(api_key=api_key)
-    index = pinecone.Index(config["vector_store"]["index_name"])
+    pc = Pinecone(api_key=api_key)
+    index = pc.Index(config["vector_store"]["index_name"])
 
     # Load embedding model
     model = SentenceTransformer(config["embedding_model"])
@@ -85,9 +89,15 @@ def retrieve_from_pinecone(query, config,config_path, top_k):
 
     return results
 
-def retrieve_from_chromadb(query, config, top_k):
+def retrieve_from_chromadb(query, config,config_path, top_k):
     # 1. Load metadata from pickle path
     metadata_path = config["vector_store"]["metadata_path"]
+
+    # save the metadata
+    df = get_data(config_path)
+    with open(metadata_path, "wb") as f:
+        pickle.dump(df.to_dict("records"), f)
+        
     metadata = load_metadata_from_pickle(metadata_path)
 
     # 2. Load embedding model
@@ -125,11 +135,11 @@ def get_similar_context(query, config_path="params.yaml", top_k=None):
         top_k = config["vector_store"]["top_k"]
 
     if store_type == "faiss":
-        return retrieve_from_faiss(query, config, top_k)
+        return retrieve_from_faiss(query, config,config_path, top_k)
     elif store_type == "pinecone":
         return retrieve_from_pinecone(query, config,config_path, top_k)
     elif store_type == "chromadb":
-        return retrieve_from_chromadb(query, config, top_k)
+        return retrieve_from_chromadb(query, config,config_path, top_k)
     else:
         raise ValueError(f"Unsupported vector store type: {store_type}")
 
