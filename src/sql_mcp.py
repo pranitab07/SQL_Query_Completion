@@ -182,7 +182,6 @@ def handle_tab():
     if ghost_displayed:
         # Remove ghost suggestion
         pyautogui.hotkey('ctrl', 'z')
-        pyautogui.hotkey('ctrl', 'z')
         pyautogui.press('enter')
 
         # Insert actual suggestion

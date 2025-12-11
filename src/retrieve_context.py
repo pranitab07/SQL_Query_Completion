@@ -1,6 +1,5 @@
 import faiss
 import pickle
-import pinecone
 from pinecone import Pinecone
 from sentence_transformers import SentenceTransformer
 import numpy as np

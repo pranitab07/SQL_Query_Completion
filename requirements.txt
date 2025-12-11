@@ -22,7 +22,7 @@ pyautogui
 pygetwindow
 pyinstaller
 chromadb
-pinecone
+pinecone>=5.0.0
 PyYAML
 SQLAlchemy>=2.0
 pymysql>=1.0

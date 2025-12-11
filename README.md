@@ -103,29 +103,44 @@ pip install -r requirements.txt
 ```
  
 ### 4. Set Up Environment Variables
- 
-Create a `.env` file in the project root:
- 
+
+Copy the example environment file and configure it:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` file with your credentials:
+
 ```env
 GROQ_API_KEY=your_groq_api_key_here
+DB_PASSWORD=your_database_password
+DB_NAME=your_database_name
 PINECONE_API_KEY=your_pinecone_api_key_here  # Optional, only for Pinecone
-PINECONE_ENVIRONMENT=your_pinecone_env_here  # Optional, only for Pinecone
 ```
- 
+
 ### 5. Configure Database Connection
- 
-Edit `db_config.yaml` with your database credentials:
- 
+
+Copy the example database config and configure it:
+
+```bash
+cp db_config.yaml.example db_config.yaml
+```
+
+The `db_config.yaml` file uses environment variables for sensitive data:
+
 ```yaml
 db:
   type: mysql  # or postgres
-  user: your_username
-  password: your_password
+  user: root
+  password: ${DB_PASSWORD}  # Reads from .env
   host: localhost
   port: 3306  # 5432 for PostgreSQL
-  name: your_database_name
+  name: ${DB_NAME}  # Reads from .env
   sample_rows: 2
 ```
+
+**Note**: The actual `db_config.yaml` file is gitignored for security. Always use the template file as a reference.
  
 ### 6. Download and Prepare Data
  

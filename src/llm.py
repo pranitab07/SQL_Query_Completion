@@ -33,7 +33,7 @@ User Input: {user_input}
             {"role": "system", "content": "You are an expert SQL assistant. Only return valid SQL code. No explanations. And donot give it in bash format. Give as a single statement. Do not give me in markdown"},
             {"role": "user", "content": full_prompt}
         ],
-        "temperature": 0.3
+        "temperature": 0
     }
 
     response = requests.post(url, headers=headers, json=data)

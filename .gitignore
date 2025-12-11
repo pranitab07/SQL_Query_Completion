@@ -56,6 +56,7 @@ coverage.xml
 *.log
 
 # Sphinx documentation
+docs/
 docs/_build/
 
 # PyBuilder
@@ -67,6 +68,7 @@ target/
 # Database
 *.db
 *.rdb
+db_config.yaml
 
 # Pycharm
 .idea
@@ -92,3 +94,8 @@ target/
 
 # Mypy cache
 .mypy_cache/
+
+BUILD.md
+SETUP_INSTRUCTIONS.md
+CHANGES_AND_NEXT_STEPS.md
+.claude/

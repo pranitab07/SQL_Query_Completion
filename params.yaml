@@ -1,12 +1,12 @@
 base:
   project: sql_query_completion
   sleep_time: 0.2
-  env_path: C:\Users\Aditya\OneDrive\Desktop\SQL Query Completion\.env
-  window_name: 
+  env_path: .env
+  window_name:
     - MySQL Workbench
     - pgAdmin 4
-data :
-  loc : data\raw\sql_text_to_sql.csv
+data:
+  loc: data/raw/sql_text_to_sql.csv
   source: gretelai/synthetic_text_to_sql
 
 llm:
@@ -29,7 +29,7 @@ vector_store:
   top_k: 5 # for similarity search
   
   # only for chroma
-  persist_directory: data/processed/chroma
+  persist_directory: ./chroma
   collection_name_chroma: sql_collection
   chroma_batch_size: 100000
 

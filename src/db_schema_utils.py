@@ -1,10 +1,19 @@
+import os
 import yaml
 import sqlalchemy
 from sqlalchemy import create_engine, text
 
 def read_db_config(path="db_config.yaml"):
     with open(path, "r") as f:
-        return yaml.safe_load(f)["db"]
+        config = yaml.safe_load(f)["db"]
+
+    # Expand environment variables
+    for key, value in config.items():
+        if isinstance(value, str) and value.startswith("${") and value.endswith("}"):
+            env_var = value[2:-1]
+            config[key] = os.getenv(env_var, value)
+
+    return config
 
 def create_connection(db_cfg):
     if db_cfg["type"] == "mysql":
